@@ -327,7 +327,7 @@ void Invert(double**matrix, int size)
     return;
 }
 
-void lud(double**matrix, double**b, int size, double*vector, double*result)
+void lud(double**matrix,/* double**b,*/ int size, double*vector/*, double*result*/)
 {
      double**upper = CreateMatrix(size); 
      double**lower = CreateMatrix(size);
@@ -351,7 +351,7 @@ void lud(double**matrix, double**b, int size, double*vector, double*result)
                        sum = matrix[perm/2][i];
                        for (int j=0; j<(perm/2); j++)
                        {
-                           sum -= lower[perm/2+1][j]*upper[j][i];
+                           sum -= lower[perm/2][j]*upper[j][i];
                        }
                        sum = sum/lower[perm/2][perm/2];
                        upper[perm/2][i] = sum;
@@ -374,4 +374,9 @@ void lud(double**matrix, double**b, int size, double*vector, double*result)
      MPrint(upper,size,size);
      std::cout << std::endl;
      MPrint(lower,size,size);
+     
+     double**answer = CreateMatrix(size);
+     mulsquare(lower,upper,answer,size);
+     std::cout << std::endl;
+     MPrint(answer,size,size);
 }
